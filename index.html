@@ -31,8 +31,8 @@ h1{margin:0;font-size:clamp(16px,1.8vw,24px);white-space:nowrap}
 .hoop.done{opacity:.6;--c:#ffc400}.hoop.gold{--c:#ffc400;scale:1.3;box-shadow:0 0 3cqw .8cqw #ffd54a}
 .hoop.sp{animation:float 3s ease-in-out infinite,sp .8s}
 @keyframes sp{40%{filter:brightness(1.5) drop-shadow(0 0 2cqw #fff);scale:1.2}}
-.hoop .l{font:700 calc(var(--hw)*.62)/1 Amiri,'Noto Naskh Arabic','Traditional Arabic',serif;color:#0b2c5c;-webkit-text-stroke:calc(var(--hw)*.05) #fff;paint-order:stroke fill;direction:rtl;transform:translateY(-6%)}
-.hoop .st2{font-size:calc(var(--hw)*.35)}
+.hoop .l{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}.hoop .l text{font-family:Amiri,'Noto Naskh Arabic','Traditional Arabic',serif;font-weight:700;fill:#0b2c5c;stroke:#fff;stroke-width:5;paint-order:stroke fill;stroke-linejoin:round}
+.hoop .s2{font:700 calc(var(--hw)*.35)/1 Amiri,serif;transform:translateY(-6%)}
 #dol{left:24cqw;width:var(--dw);margin-left:calc(var(--dw)/-2);bottom:calc(var(--surf) - var(--dw)/5);z-index:4}
 #dsv{animation:bob 2.2s ease-in-out infinite}#dsv svg{display:block;width:100%;overflow:visible;filter:drop-shadow(0 .8cqh 1cqh rgba(0,40,80,.35))}
 @keyframes bob{50%{transform:translateY(-1.2cqh)}}
@@ -51,7 +51,7 @@ h1{margin:0;font-size:clamp(16px,1.8vw,24px);white-space:nowrap}
 .stats{display:flex;gap:6px;flex-wrap:wrap;flex:1;justify-content:center;align-items:center}
 .st{flex:none;display:flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:1px 12px;box-shadow:0 2px 5px rgba(0,0,0,.12);white-space:nowrap}
 .st small{font-size:12px;opacity:.75}.st b{font-size:clamp(15px,1.5vw,20px)}
-#cl{font-family:Amiri,'Noto Naskh Arabic',serif;font-size:26px!important;line-height:1.2}
+#cl{font-family:Amiri,'Noto Naskh Arabic',serif;font-size:24px!important;line-height:1.5;white-space:nowrap}
 /* ---- compact control dock ---- */
 .panel{padding:6px 14px 8px;display:grid;gap:6px;background:var(--panel)}
 .bar{height:8px;background:#bfe6f2;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#19b5d6,#ffd23f);transition:width .8s}
@@ -65,10 +65,22 @@ h1{margin:0;font-size:clamp(16px,1.8vw,24px);white-space:nowrap}
 .ov.hide{display:none}.ov h2{margin:0;font-size:clamp(28px,5.6vw,66px);text-shadow:0 4px 0 rgba(0,60,100,.5)}.ov p{margin:0;font-size:clamp(16px,2.4vw,28px);text-shadow:0 2px 0 rgba(0,60,100,.5)}
 .ov .b{flex:none;font-size:clamp(22px,3vw,36px);padding:14px 44px;background:linear-gradient(#ffb347,#ff6f91)}
 .big{font-size:clamp(40px,7vw,90px)}
+.ov{overflow:auto;align-content:safe center}
+.ov .b.gr{background:#5b7f93}.ov .b.sm{font-size:clamp(16px,2vw,22px);padding:10px 26px}
+#welcome{gap:10px}#welcome .big{font-size:clamp(34px,6vw,56px)}#welcome h2{font-size:clamp(26px,4.5vw,48px)}#welcome p{font-size:clamp(15px,2vw,22px)}
+.setup{width:min(680px,94vw);background:var(--panel);color:var(--ink);border-radius:20px;padding:14px 16px;text-align:left;display:grid;gap:8px;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:16px}
+.setup small{opacity:.8;font-weight:600}
+.setup textarea{width:100%;font:700 28px/1.9 Amiri,'Noto Naskh Arabic',serif;background:var(--card);color:var(--ink);border:3px solid #19b5d6;border-radius:14px;padding:6px 12px;resize:vertical;min-height:90px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;max-height:90px;overflow:auto}
+.chips i{font:700 24px/1.8 Amiri,'Noto Naskh Arabic',serif;font-style:normal;background:var(--card);border-radius:12px;padding:0 10px;box-shadow:0 2px 4px rgba(0,0,0,.15);direction:rtl}
+.opts{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;font-weight:600}.opts label{display:flex;gap:6px;align-items:center}
+.opts input[type=number]{width:70px;font:inherit;padding:2px 6px;border-radius:8px;border:2px solid #19b5d6;background:var(--card);color:var(--ink)}
+.serr{color:#d97706;font-weight:800;min-height:1.2em}
+.row2{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
 </style></head><body>
 <header><h1>🐬 Dolphin’s Jump Race</h1>
-<div class="stats"><div class="st"><small>Current letter</small><b id="cl">–</b></div><div class="st"><small>Correct</small><b id="sc">0</b></div><div class="st"><small>Incorrect attempts</small><b id="sw">0</b></div><div class="st"><small>Completed letters</small><b id="sd">0 / 11</b></div><div class="st"><small>Stars</small><b id="ss">—</b></div></div>
-<button class="b gr" id="snd" style="flex:none;padding:5px 14px">🔊 Sound ON</button></header>
+<div class="stats"><div class="st"><small>Current</small><b id="cl">–</b></div><div class="st"><small>Correct</small><b id="sc">0</b></div><div class="st"><small>Incorrect attempts</small><b id="sw">0</b></div><div class="st"><small>Completed</small><b id="sd">0 / 11</b></div><div class="st"><small>Stars</small><b id="ss">—</b></div></div>
+<div style="display:flex;gap:8px;flex:none"><button class="b am" id="edt" style="flex:none;padding:5px 14px">✏️ Edit letters</button><button class="b gr" id="snd" style="flex:none;padding:5px 14px">🔊 Sound ON</button></div></header>
 <main id="scene">
 <div class="sun">☀️</div><div class="cloud" style="top:8%;animation-delay:-10s">☁️</div><div class="cloud" style="top:20%;animation-delay:-40s">☁️</div>
 <div class="bw"></div><div class="sand"></div>
@@ -95,18 +107,24 @@ h1{margin:0;font-size:clamp(16px,1.8vw,24px);white-space:nowrap}
 </main>
 <section class="panel">
 <div class="bar"><i id="bar"></i></div>
-<div class="row"><button class="b no" id="bw">WRONG ✗</button><button class="b ok" id="bc">CORRECT ✓</button><button class="b pu" id="bs">SHOW LETTER</button><button class="b am" id="bk">NEXT / SKIP</button><button class="b" id="br">RETRY</button><button class="b gr" id="bp">PAUSE</button><button class="b gr" id="bx">RESTART</button></div>
+<div class="row"><button class="b no" id="bw">WRONG ✗</button><button class="b ok" id="bc">CORRECT ✓</button><button class="b pu" id="bs">SHOW BIG</button><button class="b am" id="bk">NEXT / SKIP</button><button class="b" id="br">RETRY</button><button class="b gr" id="bp">PAUSE</button><button class="b gr" id="bx">RESTART</button></div>
 </section>
-<div class="ov" id="welcome"><div class="big">🐬🌊🛟</div><h2>DOLPHIN’S JUMP RACE! 🐬</h2><p>Help Dolphin jump through the hoops!</p><button class="b" id="start">START GAME</button></div>
+<div class="ov" id="welcome"><div class="big">🐬🌊🛟</div><h2>DOLPHIN’S JUMP RACE! 🐬</h2><p>Help Dolphin jump through the hoops by reading Arabic letters and words!</p>
+<div class="setup"><label for="txt"><b>Teacher setup: what should the student read?</b><small dir="rtl" style="display:block">اكتب الحروف أو الكلمات اللي عاوز الطالب يلعب بيها، وافصل بينها بمسافة أو فاصلة أو سطر جديد</small></label>
+<textarea id="txt" dir="auto" rows="3" spellcheck="false" placeholder="ع غ ف   أو   بَيْتٌ، كِتَابٌ، قَلَمٌ"></textarea>
+<div class="chips" id="chips"></div><small id="cnt"></small>
+<div class="opts"><label><input type="checkbox" id="split"><span>Split into single letters <small>(كل حرف لوحده)</small></span></label><label><input type="checkbox" id="shuf" checked><span>Shuffle order <small>(ترتيب عشوائي)</small></span></label><label><span>Hoops per round <small>(عدد الحلقات)</small></span><input type="number" id="per" min="1" max="20" placeholder="All"></label></div>
+<div class="serr" id="serr"></div></div>
+<div class="row2"><button class="b" id="start">START GAME</button><button class="b gr sm" id="setcancel" hidden>CANCEL</button></div></div>
 <div class="ov hide" id="pause"><h2>⏸ Paused</h2><button class="b" id="resume">RESUME</button></div>
-<div class="ov hide" id="win"><div class="big">🐬🎉🌊</div><h2>AMAZING! YOU DID IT! 🐬🌊</h2><p>You helped Dolphin complete the race!</p><p id="wt"></p><p class="big" id="wst"></p><button class="b" id="again">PLAY AGAIN</button></div>
+<div class="ov hide" id="win"><div class="big">🐬🎉🌊</div><h2>AMAZING! YOU DID IT! 🐬🌊</h2><p>You helped Dolphin complete the race!</p><p id="wt"></p><p class="big" id="wst"></p><div class="row2"><button class="b" id="again">PLAY AGAIN</button><button class="b am sm" id="chg">✏️ CHANGE LETTERS</button></div></div>
 <script>
 const $=id=>document.getElementById(id),sc=$('scene'),W=$('world'),DO=$('dol'),sleep=ms=>new Promise(r=>setTimeout(r,ms)),rnd=n=>Math.floor(Math.random()*n),pick=a=>a[rnd(a.length)];
-const LET=['ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي'],N=11,STEP=22,X0=24,SURF=52,HC=74;
+let N=11;const STEP=22,X0=24,SURF=52,HC=74;
 const DX=k=>X0+STEP*k,HX=k=>X0+11+STEP*k,COL=['#ff6f91','#2f9bff','#ffd23f','#9b5de5','#3ddc97','#ff9f1c'];
 const PRAISE=['Amazing!','Excellent!','Fantastic!','Great job!','Super Dolphin!'],OOPS=['Oops! Let’s try again!','Try one more time!','You can do it!'];
 let order=[],pos=0,ok=0,bad=0,sessOk=0,playing=false,busy=false,paused=false,soundOn=true,zt,mt,lastKey='';
-function shuffle(){let a;do{a=[...LET];for(let i=N-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}}while(a.join()==LET.join());return a}
+function shuffle(src){let a;do{a=[...src];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}}while(a.length>1&&a.join('\u0001')==src.join('\u0001'));return a}
 function el(t,c,h){const e=document.createElement(t);e.className=c;if(h)e.textContent=h;return e}
 /* ---- gentle sound ---- */
 let AC;function ac(){if(!AC)try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}if(AC&&AC.state=='suspended')AC.resume();return AC}
@@ -116,11 +134,19 @@ const pops=()=>[0,1,2,3].forEach(i=>tone(600+rnd(600),i*.09,.07,'sine',.07));
 const sfx={swim:()=>tone(220,0,.5,'sine',.05,330),jump:()=>tone(330,0,.7,'sine',.09,880),splash:()=>{noise(.45);pops()},dive:()=>{tone(500,0,.5,'sine',.07,200);pops()},ok:()=>[523,659,784].forEach((f,i)=>tone(f,i*.12,.3,'triangle',.12)),win:()=>[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,i*.14,.4,'triangle',.14)),spark:()=>tone(1400,0,.3,'sine',.06,2200)};
 $('snd').onclick=()=>{soundOn=!soundOn;$('snd').textContent=soundOn?'🔊 Sound ON':'🔇 Sound OFF'};
 /* ---- scene build ---- */
-const hoops=[];
-for(let k=0;k<=N;k++){const h=el('div','hoop'+(k==N?' gold':''));h.style.left=HX(k)+'cqw';h.style.setProperty('--c',COL[k%6]);h.style.animationDelay=-k*.4+'s';h.append(el('span','l'));W.append(h);hoops.push(h)}
-for(let x=6;x<330;x+=6+rnd(6)){const r=el('i','reef',pick(['🪸','🌿','🪸','🐚','🌱']));r.style.left=x+'cqw';r.style.bottom=1+rnd(7)+'%';r.style.fontSize=4+rnd(3)+'cqw';W.append(r)}
+const hoops=[],dots=[];
+const NS='http://www.w3.org/2000/svg',FF='Amiri,"Noto Naskh Arabic","Traditional Arabic",serif',cv=document.createElement('canvas').getContext('2d'),fitC=new Map(),len=t=>Array.from(String(t).replace(/[\p{M}\u0640]/gu,'')).length||1;
+function mkLabel(){const v=document.createElementNS(NS,'svg');v.setAttribute('viewBox','0 0 100 100');v.setAttribute('class','l');v.append(document.createElementNS(NS,'text'));v.firstChild.setAttribute('text-anchor','middle');return v}
+/* measure the real ink box (harakat included) and scale it to sit inside the hoop's circle, centred */
+function fitText(t){if(fitC.has(t))return fitC.get(t);cv.font=`700 100px ${FF}`;cv.textAlign='center';const m=cv.measureText(t),abl=m.actualBoundingBoxLeft||0,abr=m.actualBoundingBoxRight||0,asc=m.actualBoundingBoxAscent||0,dsc=m.actualBoundingBoxDescent||0;
+let w=abl+abr,h=asc+dsc;if(!(w>0&&h>0)){w=m.width||60;h=90}
+const u=Math.min(.78,81/Math.hypot(w,h)),r={f:100*u,x:50-((abr-abl)/2)*u,y:50+((asc-dsc)/2)*u};fitC.set(t,r);return r}
+function setLabel(v,t){const x=v.firstChild;x.textContent=t;if(t){const f=fitText(t);x.setAttribute('x',f.x.toFixed(2));x.setAttribute('y',f.y.toFixed(2));x.setAttribute('font-size',f.f.toFixed(2))}}
+function buildWorld(){hoops.forEach(h=>h.remove());hoops.length=0;dots.forEach(d=>d.remove());dots.length=0;W.querySelectorAll('.reef').forEach(e=>e.remove());W.style.width=(HX(N)+63)+'cqw';
+for(let k=0;k<=N;k++){const h=el('div','hoop'+(k==N?' gold':''));h.style.left=HX(k)+'cqw';h.style.setProperty('--c',COL[k%6]);h.style.animationDelay=-k*.4+'s';h.append(mkLabel());h.append(el('span','s2'));W.append(h);hoops.push(h)}
+for(let x=6;x<HX(N)+53;x+=6+rnd(6)){const r=el('i','reef',pick(['🪸','🌿','🪸','🐚','🌱']));r.style.left=x+'cqw';r.style.bottom=1+rnd(7)+'%';r.style.fontSize=4+rnd(3)+'cqw';W.append(r)}
 const isl=el('i','reef','🏝️');isl.style.cssText=`left:${HX(N)+30}cqw;bottom:calc(var(--surf) - 3%);font-size:16cqw;z-index:0`;W.append(isl);
-const dots=[];for(let i=0;i<N;i++){const d=document.createElement('i');$('track').insertBefore(d,$('mk'));dots.push(d)}
+for(let i=0;i<N;i++){const d=document.createElement('i');$('track').insertBefore(d,$('mk'));dots.push(d)}}
 for(let i=0;i<6;i++){const f=el('i','fish',pick(['🐠','🐟','🐡']));f.style.cssText=`bottom:${8+rnd(32)}%;animation-duration:${22+rnd(22)}s;animation-delay:-${rnd(30)}s`;if(i%2)f.classList.add('r');sc.insertBefore(f,W)}
 setInterval(()=>{if(document.hidden)return;const b=el('i','bub'),s=6+rnd(10);b.style.cssText=`left:${rnd(100)}%;bottom:${rnd(40)}%;width:${s}px;height:${s}px;z-index:2`;sc.append(b);b.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(-120px)',opacity:0}],{duration:3500}).onfinish=()=>b.remove()},500);
 function pan(k){W.style.transform=`translateX(${-STEP*k}cqw)`}
@@ -130,16 +156,16 @@ function say(t,b){const m=$('msg');m.textContent=t;m.className=(b?'bad ':'')+'sh
 function fly(e,x,y,dx,dy,d){const s=el('b','fx',e);s.style.left=x+'%';s.style.bottom=y+'%';sc.append(s);s.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${dx/2}px,${dy}px) rotate(180deg)`,opacity:1,offset:.5},{transform:`translate(${dx}px,${dy+110}px) rotate(360deg)`,opacity:0}],{duration:d,easing:'ease-out'}).onfinish=()=>s.remove()}
 function burst(n,list){for(let i=0;i<n;i++)fly(pick(list||['⭐','✨','🎉','🌟','🎊','🫧']),20+rnd(60),55+rnd(30),(Math.random()-.5)*420,-40-rnd(100),1300+rnd(800))}
 /* ---- state / render ---- */
-function render(){hoops.forEach((h,k)=>{if(k==N)return;const d=k<pos,c=k==pos&&playing;h.classList.toggle('done',d);h.classList.toggle('cur',c);const l=h.firstChild;l.className=d?'l st2':'l';l.textContent=c?order[k]:d?'⭐':''});
+function render(){hoops.forEach((h,k)=>{if(k==N)return;const d=k<pos,c=k==pos&&playing;h.classList.toggle('done',d);h.classList.toggle('cur',c);setLabel(h.firstChild,c?order[k]:'');h.lastChild.textContent=d?'⭐':''});
 const key=pos+(order[pos]||'');if(playing&&key!=lastKey){lastKey=key;hoops[pos].firstChild.animate([{transform:'scale(0)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:450})}
 dots.forEach((d,i)=>d.classList.toggle('on',i<pos));$('mk').style.left=(3+pos/N*94)+'%';
-$('cl').textContent=playing?order[pos]:'–';$('sc').textContent=ok;$('sw').textContent=bad;$('sd').textContent=pos+' / '+N;$('bar').style.width=pos/N*100+'%';$('ss').textContent='⭐'.repeat(Math.floor(sessOk/5))||'—'}
+const cu=playing&&pos<N?order[pos]:'–',cl=$('cl');cl.textContent=cu;cl.style.setProperty('font-size',Math.max(14,Math.min(24,Math.floor(90/len(cu))))+'px','important');$('sc').textContent=ok;$('sw').textContent=bad;$('sd').textContent=pos+' / '+N;$('bar').style.width=pos/N*100+'%';$('ss').textContent='⭐'.repeat(Math.floor(sessOk/5))||'—'}
 function ctrls(){['bc','bw','bs','bk','br','bx'].forEach(i=>$(i).disabled=busy||paused||!playing);$('bp').disabled=busy||!playing;$('bp').textContent=paused?'RESUME':'PAUSE'}
 function hideZoom(){$('zoom').hidden=true;clearTimeout(zt)}
 async function run(fn){if(busy||paused||!playing)return;busy=true;ctrls();hideZoom();try{await fn()}finally{busy=false;ctrls()}}
-function newRound(){order=shuffle();pos=0;ok=0;bad=0;playing=true;busy=false;paused=false;lastKey='';hideZoom();['pause','win','welcome'].forEach(i=>$(i).classList.add('hide'));
+function newRound(){N=want();order=makeDeck();buildWorld();pos=0;ok=0;bad=0;playing=true;busy=false;paused=false;lastKey='';hideZoom();['pause','win','welcome'].forEach(i=>$(i).classList.add('hide'));
 W.style.transition='none';W.style.transform='none';DO.style.left=X0+'cqw';W.offsetWidth;W.style.transition='';
-DO.animate([{transform:'translateY(60px) scale(.4)',opacity:0},{transform:'none',opacity:1}],{duration:700});mood('happy');render();ctrls();say('Read the letter in the hoop!')}
+DO.animate([{transform:'translateY(60px) scale(.4)',opacity:0},{transform:'none',opacity:1}],{duration:700});mood('happy');render();ctrls();say('Read what’s in the hoop!')}
 /* ---- actions ---- */
 async function leap(k){const D=DX(k),H=sc.clientHeight*(HC-SURF)/100,T=1700,f=[{transform:'translate(0,0) rotate(0)'},{transform:'translate(-1.2cqw,3.5cqh) rotate(12deg)',offset:.1}];
 for(let i=0;i<=10;i++){const t=i/10;f.push({transform:`translate(${STEP*t}cqw,${-H*(1-(2*t-1)**2)}px) rotate(${-42+84*t}deg)`,offset:.14+.86*t})}
@@ -159,17 +185,37 @@ for(let i=0;i<6;i++)setTimeout(()=>bubs(D+1+i*.8,2),i*200);
 say(pick(OOPS),1);await sleep(1550);mood('happy')}
 async function win(){await sleep(300);await leap(N);mood('excited');sfx.win();burst(60);['🐠','🐟','🐡','🐬','🦀'].forEach((e,i)=>fly(e,15+i*15,45,(i-2)*60,-120,1800));
 $('mk').style.left='97%';await sleep(1800);playing=false;
-$('wt').textContent=`Completed letters: ${N} / ${N}  •  Correct: ${ok}  •  Incorrect attempts: ${bad}`;$('wst').textContent='⭐'.repeat(Math.floor(sessOk/5))||'☆';$('win').classList.remove('hide');render();ctrls()}
+$('wt').textContent=`Completed: ${N} / ${N}  •  Correct: ${ok}  •  Incorrect attempts: ${bad}`;$('wst').textContent='⭐'.repeat(Math.floor(sessOk/5))||'☆';$('win').classList.remove('hide');render();ctrls()}
 $('bc').onclick=()=>run(onCorrect);$('bw').onclick=()=>run(onWrong);
 $('br').onclick=()=>run(async()=>{mood('happy');say('Let’s read it again!');lastKey='';render()});
-$('bk').onclick=()=>run(async()=>{if(pos>=N-1){say('This is the last letter!');return}const j=pos+1+rnd(N-1-pos);[order[pos],order[j]]=[order[j],order[pos]];mood('happy');say('Here’s a new letter!');render()});
-$('bs').onclick=()=>{if(busy||paused||!playing)return;const z=$('zoom');if(!z.hidden)return hideZoom();z.textContent=order[pos];z.hidden=false;zt=setTimeout(hideZoom,6000)};
+$('bk').onclick=()=>run(async()=>{if(pos>=order.length-1){say('This is the last one!');return}const j=pos+1+rnd(order.length-1-pos);[order[pos],order[j]]=[order[j],order[pos]];mood('happy');say('Here’s a new one!');render()});
+$('bs').onclick=()=>{if(busy||paused||!playing)return;const z=$('zoom');if(!z.hidden)return hideZoom();const zt0=order[pos];z.textContent=zt0;z.style.lineHeight=/\p{M}/u.test(zt0)?1.8:'';z.style.fontSize=`min(48cqh,26cqw,${(150/len(zt0)).toFixed(1)}cqw)`;z.hidden=false;zt=setTimeout(hideZoom,6000)};
 $('zoom').onclick=hideZoom;
 function togglePause(){if(busy||!playing)return;paused=!paused;$('pause').classList.toggle('hide',!paused);ctrls()}
 $('bp').onclick=togglePause;$('resume').onclick=togglePause;
 $('bx').onclick=()=>{if(!busy&&playing)newRound()};
-$('start').onclick=()=>{ac();newRound()};$('again').onclick=()=>{ac();newRound()};
+/* ---- teacher setup ---- */
+const KEY='dolphin-setup-v1',DEF={text:'ع غ ف ق ك ل م ن ه و ي',split:false,shuf:true,per:0};
+let cur={...DEF},started=false,from=null,wasPaused=false;
+try{Object.assign(cur,JSON.parse(localStorage.getItem(KEY)||'null')||{})}catch(e){}
+function parse(t,sp){const a=sp?(t.match(/\p{L}[\p{M}\u0640]*/gu)||[]):t.split(/[\s,،;؛]+/).filter(Boolean);return[...new Set(a)]}
+let POOL=parse(cur.text,cur.split);if(!POOL.length){cur={...DEF};POOL=parse(cur.text,false)}
+const want=()=>Math.max(1,Math.min(20,cur.per||POOL.length));
+function makeDeck(){const L=want(),mk=()=>cur.shuf?shuffle(POOL):[...POOL];let d=mk();while(d.length<L){const c=mk();if(c.length>1&&c[0]==d[d.length-1])c.push(c.shift());d.push(...c)}return d}
+function form(){return{text:$('txt').value,split:$('split').checked,shuf:$('shuf').checked,per:Math.max(0,Math.min(20,parseInt($('per').value)||0))}}
+function chips(){const f=form(),a=parse(f.text,f.split),c=$('chips');c.textContent='';a.slice(0,60).forEach(x=>c.append(el('i','',x)));if(a.length>60)c.append(el('i','','+'+(a.length-60)));
+const n=f.per||Math.min(a.length,20);$('cnt').textContent=a.length?`${a.length} item${a.length>1?'s':''} found • ${n} hoop${n>1?'s':''} per round${a.length<n?' (items repeat to fill the hoops)':''}`:'No items yet';$('serr').textContent=''}
+function fill(s){$('txt').value=s.text;$('split').checked=!!s.split;$('shuf').checked=s.shuf!==false;$('per').value=s.per||'';chips()}
+['txt','split','shuf','per'].forEach(i=>['input','change'].forEach(e=>$(i).addEventListener(e,chips)));
+function apply(){const f=form(),a=parse(f.text,f.split);if(!a.length){$('serr').textContent='Please write at least one letter or word. • اكتب حرف أو كلمة على الأقل';return false}
+cur=f;POOL=a;try{localStorage.setItem(KEY,JSON.stringify(f))}catch(e){}return true}
+function openSetup(src){hideZoom();from=src;wasPaused=paused;if(src=='game'){paused=true;ctrls()}fill(cur);['pause','win'].forEach(i=>$(i).classList.add('hide'));
+$('setcancel').hidden=!started;$('start').textContent=started?'SAVE & PLAY':'START GAME';$('serr').textContent='';$('welcome').classList.remove('hide')}
+$('edt').onclick=()=>{if(!busy)openSetup(playing?'game':'win')};$('chg').onclick=()=>openSetup('win');
+$('setcancel').onclick=()=>{$('welcome').classList.add('hide');if(from=='win')$('win').classList.remove('hide');else{paused=wasPaused;$('pause').classList.toggle('hide',!paused);ctrls()}};
+$('start').onclick=()=>{if(!apply())return;ac();started=true;newRound()};$('again').onclick=()=>{ac();newRound()};
 /* welcome: dolphin leaps in place */
 setInterval(()=>{if(playing||$('welcome').classList.contains('hide'))return;const H=sc.clientHeight*.3,f=[];for(let i=0;i<=10;i++){const t=i/10;f.push({transform:`translateY(${-H*(1-(2*t-1)**2)}px) rotate(${-40+80*t}deg)`})}DO.animate(f,{duration:1600})},3400);
-render();ctrls();
+fill(cur);N=want();buildWorld();render();ctrls();
+try{document.fonts.load('700 40px Amiri','ابت ًٌٍَُِّْ').then(()=>{fitC.clear();render()});document.fonts.ready.then(()=>{fitC.clear();render()})}catch(e){}
 </script></body></html>
